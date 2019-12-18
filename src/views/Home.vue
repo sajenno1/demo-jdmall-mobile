@@ -1,18 +1,33 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home-page">
+      <div class="search-bar">
+        <i class="iconfont iconfenlei-" style="color: white;"></i>
+      </div>
+      <div class="slider-warpper">
+
+      </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
+
 }
 </script>
+
+<style lang="scss">
+.home-page {
+  height:100%;
+  .search-bar {
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    height: 44px;
+    width: 100vw;
+    border: 1px solid red;
+  }
+  .slider-warpper {
+    width: 100%;
+  }
+}
+</style>

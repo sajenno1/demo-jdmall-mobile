@@ -1,32 +1,57 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <van-loading v-show="showLoading" color="#1989fa" >加载中...</van-loading>
+    <van-overlay :show="showLoading"/>
+    <router-view />
+    <tab-bar v-show="$route.meta.showTab"/>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import TabBar from './components/TabBar'
+export default {
+  components: {
+    TabBar
+  },
+  computed: {
+    showLoading() {
+      return this.$store.state.showLoading
+    }
+  },
+  mounted() {
+    console.log(this.$store.state.showLoading)
+    if(this.$store.state.showLoading) {
+      setTimeout(()=>{
+        this.$store.dispatch('toggleLoading'); //模拟展示loading,1.5秒后取消
+      },1500)
+    }
+  },
 }
+</script>
 
-#nav {
-  padding: 30px;
+<style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+html, body {
+  height: 100%;
+  #app{
+    position: relative;
+    height: 100%;
+    .el-loading-spinner {
+      height: auto;
+    }
+    .van-loading {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .van-overlay {
+      background-color: rgba(0,0,0,.1);
+    }
+  }
 }
 </style>
