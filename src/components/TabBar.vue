@@ -48,7 +48,9 @@ export default {
     bottom: 0;
     display: flex;
     flex-direction: row;
-    background: #eee;
+    background: #fefefe;
+    box-shadow: 0 0 10px 0 hsla(0,6%,58%,.6);
+    -webkit-box-shadow: 0 0 10px 0 hsla(0,6%,58%,.6);
     >div {
         flex: 1;
         display: flex;

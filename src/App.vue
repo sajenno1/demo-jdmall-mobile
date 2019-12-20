@@ -35,7 +35,7 @@ export default {
   padding: 0;
 }
 html, body {
-  height: 100%;
+  font-family: PingFangSC-Light,PingFang-Medium,PingFangSC-Regular,Helvetica,Droid Sans,Arial,sans-serif;
   #app{
     position: relative;
     height: 100%;

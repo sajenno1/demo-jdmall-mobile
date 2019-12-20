@@ -8,7 +8,8 @@ const routes = [
     path: '/home',
     name: 'home',
     meta: {
-      showTab: true
+      showTab: true,
+      title: '京东'
     },
     component: r => require.ensure([], () => r(require('@/views/Home')), 'index') 
   },
@@ -16,7 +17,8 @@ const routes = [
     path: '/cate',
     name: 'cate',
     meta: {
-      showTab: true
+      showTab: true,
+      title: '分类'
     },
     component: r => require.ensure([], () => r(require('@/views/Cate')), 'index') 
   },
@@ -24,7 +26,8 @@ const routes = [
     path: '/cart',
     name: 'cart',
     meta: {
-      showTab: true
+      showTab: true,
+      title: '购物车'
     },
     component: r => require.ensure([], () => r(require('@/views/Cart')), 'index') 
   },
@@ -32,7 +35,8 @@ const routes = [
     path: '/mine',
     name: 'mine',
     meta: {
-      showTab: true
+      showTab: true,
+      title: '个人中心'
     },
     component: r => require.ensure([], () => r(require('@/views/Mine')), 'index') 
   },
