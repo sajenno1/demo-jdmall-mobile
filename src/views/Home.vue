@@ -186,7 +186,7 @@ $vv: 8vw;
   .slider-warpper { //轮播图
     height: 4.66 * $vv;
     width: 11.66 * $vv;
-    padding: 1.5 * $vv 4vw .5vw 4vw;
+    padding: 1.5 * $vv 3.36vw .5vw 3.36vw;
     margin: 0 auto;
     background-image: url('../assets/home_top_bg1.jpg');
     background-repeat: no-repeat;
