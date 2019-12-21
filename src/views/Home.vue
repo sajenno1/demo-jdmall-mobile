@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
       <!-- 搜索栏 -->
-      <div class="search-bar">
+      <div class="search-bar" :style="scrollOver ? 'background-color: red;' : ''">
         <i class="iconfont iconfenleisvg" style="color: white;"></i>
         <div class="search-input">
           <i class="iconfont iconjingdong1" style="color: red;"></i>
@@ -66,11 +66,11 @@
         </div>
       </div>
       <!-- 东家小院 -->
-      <div class="djxiaoyuan">
-        <div class="djxiaoyuan-title">
+      <div class="daily-best">
+        <div class="daily-best-title">
           <img src="../assets/home_djxy.png">
         </div>
-        <div class="djxiaoyuan-content">
+        <div class="daily-best-content">
           <div>
             <div class="graphic-col2" v-for="(item, index) in products.djxiaoyuan.row1" :key="index">
               <p class="graphic-tit" :style="item.titStyle ? item.titStyle : ''">{{ item.title }}</p>
@@ -93,7 +93,53 @@
           </div>
         </div>
       </div>
-      <!-- <div style="height: 50px;width:100%;"></div> -->
+      <!-- 每日逛 -->
+      <div class="daily-best">
+        <div class="daily-best-title">
+          <img src="../assets/home_mrg.png">
+        </div>
+        <div class="daily-best-content">
+          <div>
+            <div class="graphic-col1" v-for="(item, index) in products.mrg.row1" :key="index">
+              <p class="graphic-tit" :style="item.titStyle ? item.titStyle : ''">{{ item.title }}</p>
+              <p class="graphic-wz">{{ item.des }}</p>
+              <div>
+                <img v-lazy="item.home_mrg_pro_img">
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="graphic-col1" v-for="(item, index) in products.mrg.row2" :key="index">
+              <p class="graphic-tit" :style="item.titStyle ? item.titStyle : ''">{{ item.title }}</p>
+              <p class="graphic-wz">{{ item.des }}</p>
+              <div>
+                <img v-lazy="item.home_mrg_pro_img">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 为你推荐 -->
+      <div class="toU-recommend">
+        <div class="toU-recommend-title">
+          <img src="../assets/home_wntj.png">
+        </div>
+        <div class="toU-recommend-content">
+          <div v-for="(item, index) in products.wntj" :key="index">
+            <div>
+              <img v-lazy="item.home_wntj_pro_img">
+            </div>
+            <div class="product-title">
+              <p>{{ item.title }}</p>
+            </div>
+            <div class="product-info">
+              <span><em>¥ </em><span class="big-price">{{ item.price | bigPrice }}</span><span>{{ item.price | smallPrice }}</span></span>
+              <span class="discount-tag" v-if="item.discountTag">{{ item.discountTag }}</span>
+              <span>看相似</span>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -146,7 +192,7 @@ export default {
         cdSecond: 59 - new Date().getSeconds(),
         scene: new Date().getHours() % 2 === 0 ?  new Date().getHours() + '点场' : new Date().getHours() - 1 + '点场',
       },
-      products: {
+      products: { // 首页商品
         seckill: [ //秒杀商品
           {home_seckill_pro_img: require('../assets/products/seckill_1.jpg'), oPrice: 126, dPrice: 85, },
           {home_seckill_pro_img: require('../assets/products/seckill_1.jpg'), oPrice: 126, dPrice: 85, },
@@ -158,19 +204,43 @@ export default {
           {home_seckill_pro_img: require('../assets/products/seckill_1.jpg'), oPrice: 126, dPrice: 85, },
           {home_seckill_pro_img: require('../assets/products/seckill_1.jpg'), oPrice: 126, dPrice: 85, },
         ],
-        djxiaoyuan: { //东家小院
-          row1:[
+        djxiaoyuan: { // 东家小院
+          row1: [
             {title: '办公精选', titStyle:'background: -webkit-linear-gradient(left,#45CAFF,#1471FB);background: linear-gradient(90deg, #45CAFF,#1471FB);-webkit-background-clip: text;color: transparent;', des: '简约外观，办公游戏',home_djxiaoyuan_pro_img: [require('../assets/products/djxiaoyuan_1.jpg'),require('../assets/products/djxiaoyuan_2.jpg')]},
             {title: '旅途肆意', titStyle:'background: -webkit-linear-gradient(left,#45CAFF,#1471FB);background: linear-gradient(90deg, #45CAFF,#1471FB);-webkit-background-clip: text;color: transparent;', des: '如此才能安心自驾游',home_djxiaoyuan_pro_img: [require('../assets/products/djxiaoyuan_3.jpg'),require('../assets/products/djxiaoyuan_4.jpg')]},
           ],
-          row2:[
+          row2: [
             {title: '脱单秘籍', des: '脱单攻略',home_djxiaoyuan_pro_img: require('../assets/products/djxiaoyuan_5.jpg')},
             {title: '完美爱人', des: '送礼精选',home_djxiaoyuan_pro_img: require('../assets/products/djxiaoyuan_6.jpg')},
             {title: '香点阅读', des: '香薰阅读',home_djxiaoyuan_pro_img: require('../assets/products/djxiaoyuan_7.jpg')},
             {title: '书适生活', des: '快乐阅读',home_djxiaoyuan_pro_img: require('../assets/products/djxiaoyuan_8.jpg')},
           ]
-        }
-      }
+        },
+        mrg: { // 每日逛
+          row1: [
+            {title: '免息星球', titStyle:' background: -webkit-linear-gradient(left,#FF2A2A,#F139D2);background: linear-gradient(90deg, #FF2A2A,#F139D2);-webkit-background-clip: text;color: transparent;', des: '白条免息购',home_mrg_pro_img: require('../assets/products/mrg_1.jpg')},
+            {title: '每日特价', titStyle:' background: -webkit-linear-gradient(left,#FE8537,#F02B2B);background: linear-gradient(90deg, #FE8537,#F02B2B);-webkit-background-clip: text;color: transparent;', des: '9块9疯抢',home_mrg_pro_img: require('../assets/products/mrg_2.jpg')},
+            {title: '品牌闪购', titStyle:' background: -webkit-linear-gradient(left,#FF765C,#FF23B3);background: linear-gradient(90deg, #FF765C,#FF23B3);-webkit-background-clip: text;color: transparent;', des: '汇大牌好价',home_mrg_pro_img: require('../assets/products/mrg_3.jpg')},
+            {title: '京东直播', titStyle:' background: -webkit-linear-gradient(left,#FF2A00,#FF00AF);background: linear-gradient(90deg, #FF2A00,#FF00AF);-webkit-background-clip: text;color: transparent;', des: '边看边买',home_mrg_pro_img: require('../assets/products/mrg_4.jpg')},
+          ],
+          row2: [
+            {title: '排行榜', titStyle:' background: -webkit-linear-gradient(left,#D400FF,#FF320A);background: linear-gradient(90deg, #D400FF,#FF320A);-webkit-background-clip: text;color: transparent;', des: '热销推荐',home_mrg_pro_img: require('../assets/products/mrg_5.jpg')},
+            {title: '拍拍好货', titStyle:' background: -webkit-linear-gradient(left,#00C2AB,#3E94FF);background: linear-gradient(90deg, #00C2AB,#3E94FF);-webkit-background-clip: text;color: transparent;', des: '二手优品',home_mrg_pro_img: require('../assets/products/mrg_6.jpg')},
+            {title: '新品首发', titStyle:' background: -webkit-linear-gradient(left,#FF765C,#FF23B3);background: linear-gradient(90deg, #FF765C,#FF23B3);-webkit-background-clip: text;color: transparent;', des: '京东小魔方',home_mrg_pro_img: require('../assets/products/mrg_7.jpg')},
+            {title: '发现好货', titStyle:' background: -webkit-linear-gradient(left,#2AD396,#85BB1F);background: linear-gradient(90deg, #2AD396,#85BB1F);-webkit-background-clip: text;color: transparent;', des: '教你买买买',home_mrg_pro_img: require('../assets/products/mrg_8.jpg')},
+          ]
+        },
+        wntj: [ // 为你推荐
+          {title: '车载手机架 多功能型带隐藏式停车牌导航支架 汽车中控台车内仪表台支撑架 车上车内通用支驾 汽车用品 二合一（手机支架+隐私停车牌）银色', discountTag: '', price: '28.8', home_wntj_pro_img: require('../assets/products/wntj_1.jpg')},
+          {title: '东阿阿胶 复方阿胶浆20ml*48支*2盒 无蔗糖 (头晕目眩 心悸失眠 食欲不振)', discountTag: '', price: '599', home_wntj_pro_img: require('../assets/products/wntj_4.jpg')},
+          {title: '车载手机支架磁吸 强磁性手机支架 360度旋转出风口磁铁车内仪表台吸盘汽车导航支架', discountTag: '', price: '12.8', home_wntj_pro_img: require('../assets/products/wntj_2.jpg')},
+          {title: '魅迪（MEIDI）车载手机支架磁吸 出风口粘贴式导航汽车手机支架汽车用品 【强吸力/不挡出风口/一放就稳】金属黑/单个装', discountTag: '', price: '23.8', home_wntj_pro_img: require('../assets/products/wntj_3.jpg')},
+          {title: '小米生态企业素士(SOOCAS)H3S电吹风机恒温千万负离子护发速干家用大功率大风量吹风筒', discountTag: '', price: '209', home_wntj_pro_img: require('../assets/products/wntj_5.jpg')},
+          {title: '馨梦童话 仿古金银色路灯沙漏笔筒 创意小礼品送男女朋友同学儿童节日生日毕业礼物', discountTag: '', price: '20', home_wntj_pro_img: require('../assets/products/wntj_6.jpg')},
+        ]
+      },
+      scrollOver: false, // 搜索栏背景色开关
+      scrollToTop: false, // 返回顶部开关
     }
   },
   methods: {
@@ -178,11 +248,18 @@ export default {
   filters: {
     checkTime(value) { // 时间补0
       return value > 9 ? value : '0' + value;
+    },
+    bigPrice(value) { // 金额整数部分
+      return value.split('.')[0] 
+    },
+    smallPrice(value) { // 金额小数部分
+      return value.split('.')[1] ? '.' + value.split('.')[1] : ''
     }
   },
   computed: {
   },
-  created() {
+  //生命周期
+  created() { //数据加载后
     setInterval(()=>{
       //秒杀
       this.seckill.scene = new Date().getHours() % 2 === 0 ?  new Date().getHours() + '点场' : new Date().getHours() - 1 + '点场';
@@ -190,6 +267,12 @@ export default {
       this.seckill.cdMinute = 59 - new Date().getMinutes()
       this.seckill.cdSecond = 59 - new Date().getSeconds()
     },1000)
+  },
+  mounted() { //页面装载(渲染)后
+    window.addEventListener('scroll',()=> {
+      let t = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset;
+      this.scrollOver = t > 10 ;
+    })
   }
 }
 </script>
@@ -318,8 +401,10 @@ img {
       }
     }
   }
-  .sec-kill,.djxiaoyuan { // 公共部分
+  .sec-kill,.daily-best { // 公共部分
     background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
   }
   .sec-kill { //秒杀
     margin: 3vw;
@@ -401,14 +486,14 @@ img {
       }
     }
   }
-  .djxiaoyuan { //东家小院
+  .daily-best { //东家小院 / 每日逛
     margin:  0 3vw 3vw 3vw;
-    .djxiaoyuan-title {
+    .daily-best-title {
       height: 1.16 * $vv;
       width: 100%;
       border-bottom: #eee 1px solid;
     }
-    .djxiaoyuan-content {
+    .daily-best-content {
       >div:nth-child(1) {
         border-bottom: 1px solid #eee;
       }
@@ -426,6 +511,7 @@ img {
           overflow: hidden;
         }
         .graphic-wz { //文字
+          color: #666;
           font-size: .4 * $vv;
           line-height: .67 * $vv;
           height: .67 * $vv;
@@ -437,28 +523,110 @@ img {
         >div:not(:last-child) {
           border-right: 1px solid #eee;
         }
-        .graphic-col2 {
+        >div {
           width: 50%;
           padding-left: 2vw;
+          
+        }
+        .graphic-col2 {
           >div {
-            height: 2.33 * $vv;
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-around;
             padding: 0 3%;
             >div {
+              padding: .167 * $vv 0;
               width: 2 * $vv;
               height: 2 * $vv;
             }
           }
         }
         .graphic-col1 {
-          width: 25%;
-          padding-left: 2vw;
           >div {
+            padding: .167 * $vv 0;
             width: 2 * $vv;
             height: 2 * $vv;
+          }
+        }
+      }
+    }
+  }
+  .toU-recommend { // 为你推荐
+    margin:  0 3vw 3vw 3vw;
+    font-family: -apple-system,Helvetica,sans-serif;
+    font-size: 0;
+    .toU-recommend-title {
+      height: 1.16 * $vv;
+      width: 100%;
+      border-bottom: #eee 1px solid;
+    }
+    .toU-recommend-content {
+      >div:nth-child(odd) {
+        margin-right: 2vw;
+      }
+      >div {
+        margin-top: 1vw;
+        display: inline-block;
+        background: #fff;
+        width: 46vw;
+        >div:nth-child(1) {
+          margin-top: .2 * $vv;
+          width: 100%;
+          height: 46vw;
+        }
+        .product-title {
+          box-sizing: border-box;
+          height: 30px;
+          font-size: 13px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          word-break: break-all;
+          color: #232326;
+          margin-top: 5px;
+          line-height: 15px;
+          padding: 0 4px;
+        }
+        .product-info {
+          font-size: 13px;
+          overflow: hidden;
+          position: relative;
+          height: 26px;
+          margin-top: 5px;
+          line-height: 20px;
+          margin-bottom: 3px;
+          padding: 0 4px;
+          color: #f23030;
+          span:first-child {
+            em {
+              font-style: normal;
+            }
+            .big-price {
+              font-size: 16px
+            }
+            border-bottom: 1px solid transparent;
+          }
+          .discount-tag {
+            margin: 0 5px;
+            font-size: 10px;
+            padding: 0 3px;
+            border: 1px solid #f23030;
+          }
+          >span:last-child {
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 8px;
+            text-align: center;
+            color: #686868;
+            font-size: 12px;
+            width: 49px;
+            height: 24px;
+            line-height: 25px;
+            border: 1px solid #bfbfbf;
           }
         }
       }

@@ -17,7 +17,7 @@ router.beforeEach((to, from, next) => {
     // let a = document.createElement('div')
     // a.style.height = '50px'
     // document.getElementsByClassName('tab-bar').parentNode
-    document.body.style.marginBottom = '50px';
+    document.body.style.marginBottom = '60px';
   }
   next()
 })
