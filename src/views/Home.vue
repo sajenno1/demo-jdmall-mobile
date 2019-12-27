@@ -53,14 +53,16 @@
           </div>
           <div>更多秒杀</div>
         </div>
-        <div class="sec-kill-content">
-          <div v-for="(item, index) in products.seckill" :key="index">
-            <div>
-              <img v-lazy="item.home_seckill_pro_img"/>
-            </div>
-            <div>
-              <p><em>¥</em>{{ item.dPrice }}</p>
-              <p><em>¥</em>{{ item.oPrice }}</p>
+        <div class="sec-kill-content-ot">
+          <div class="sec-kill-content">
+            <div v-for="(item, index) in products.seckill" :key="index">
+              <div>
+                <img v-lazy="item.home_seckill_pro_img"/>
+              </div>
+              <div>
+                <p><em>¥</em>{{ item.dPrice }}</p>
+                <p><em>¥</em>{{ item.oPrice }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -279,7 +281,7 @@ export default {
 
 
 <style lang="scss" >
-$vv: 8vw;
+$vv : 8vw;
 [v-cloak] {
   display: none;
 }
@@ -289,8 +291,8 @@ img {
 }
 
 .home-page {
-  background: #f6f6f6;
-  
+  background: transparent;
+  font-size: 0;
   .search-bar { //搜索栏.
     background-color: transparent;
     z-index: 999;
@@ -411,7 +413,8 @@ img {
     width: 90vw;
     padding: 0 2vw;
     height: 5.13 * $vv;
-    
+    position: relative;
+    overflow: hidden;
     .sec-kill-title {
       height: 1.13 * $vv;
       background-image: url('../assets/seckill_bg.png');
@@ -434,6 +437,7 @@ img {
         }
         >div:nth-child(2),>div:nth-child(3) {
           font-size: .4 * $vv;
+          font-weight: 700;
         }
         >div:nth-child(3) {
           margin-left: .3 * $vv;
@@ -448,39 +452,46 @@ img {
         color: red;
       }
     }
-    .sec-kill-content {
+    .sec-kill-content-ot {
       height: 4 * $vv;
-      white-space: nowrap;
-      overflow-x: scroll;
-      >div {
-        display: inline-block;
-        height: 100%;
-        width: 20%;
-        padding: 0 1%;
-        >div:nth-child(1) {
-          width: 100%;
-          height: 2.5 * $vv;
-        }
-        >div:nth-child(2) {
-          height:1.5 * $vv;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          em {
-            font-style: normal;
-            font-size: .4 * $vv;
-            padding-right: .05 * $vv;
+      overflow: hidden;
+      .sec-kill-content {
+        height: 4.5 * $vv;
+        white-space: nowrap;
+        // position: absolute;
+        // bottom: -6px;/* 隐藏滚动条,外层relative定位,里层absolute, x滚动 :bottom -6px , y滚动 :right -17px(微调) */
+        overflow-y: hidden;
+        overflow-x: scroll;
+        >div {
+          display: inline-block;
+          height: 100%;
+          width: 20%;
+          padding: 0 1%;
+          >div:nth-child(1) {
+            width: 100%;
+            height: 2.5 * $vv;
           }
-          >p:nth-child(1) {
-            font-size: .5 * $vv;
-            font-weight: 600;
-            color: red;
-          }
-          >p:nth-child(2) {
-            font-size: .4 * $vv;
-            color: #999;
-            text-decoration: line-through;
+          >div:nth-child(2) {
+            height:1.5 * $vv;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            em {
+              font-style: normal;
+              font-size: .4 * $vv;
+              padding-right: .05 * $vv;
+            }
+            >p:nth-child(1) {
+              font-size: .5 * $vv;
+              font-weight: 600;
+              color: red;
+            }
+            >p:nth-child(2) {
+              font-size: .4 * $vv;
+              color: #999;
+              text-decoration: line-through;
+            }
           }
         }
       }

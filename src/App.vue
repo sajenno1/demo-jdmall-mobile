@@ -19,7 +19,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state.showLoading)
     if(this.$store.state.showLoading) {
       setTimeout(()=>{
         this.$store.dispatch('toggleLoading'); //模拟展示loading,1.5秒后取消
@@ -30,12 +29,15 @@ export default {
 </script>
 
 <style lang="scss">
+$vv: 8vw; //sass 做自适应
 * {
   margin: 0;
   padding: 0;
 }
 html, body {
   font-family: PingFangSC-Light,PingFang-Medium,PingFangSC-Regular,Helvetica,Droid Sans,Arial,sans-serif;
+  min-height: 100%;
+  background: #f6f6f6;
   #app{
     position: relative;
     height: 100%;
@@ -53,5 +55,8 @@ html, body {
       background-color: rgba(0,0,0,.1);
     }
   }
+}
+body::-webkit-scollbar {
+  display: none;  
 }
 </style>
